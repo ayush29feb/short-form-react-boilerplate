@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/short-form-react-boilerplate/static/css/main.0c677bc6.css",
+    "main.js": "/short-form-react-boilerplate/static/js/main.20b32eb5.js",
+    "index.html": "/short-form-react-boilerplate/index.html",
+    "main.0c677bc6.css.map": "/short-form-react-boilerplate/static/css/main.0c677bc6.css.map",
+    "main.20b32eb5.js.map": "/short-form-react-boilerplate/static/js/main.20b32eb5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0c677bc6.css",
+    "static/js/main.20b32eb5.js"
+  ]
+}
