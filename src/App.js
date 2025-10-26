@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     // Load media from JSON file
-    fetch('/media.json')
+    fetch(`${process.env.PUBLIC_URL}/media.json`)
       .then(response => response.json())
       .then(data => {
         setMedia(data);
