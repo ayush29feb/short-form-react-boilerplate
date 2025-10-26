@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/short-form-react-boilerplate/static/css/main.0c677bc6.css",
-    "main.js": "/short-form-react-boilerplate/static/js/main.bc232764.js",
+    "main.css": "/short-form-react-boilerplate/static/css/main.06f9a05a.css",
+    "main.js": "/short-form-react-boilerplate/static/js/main.c60c5a01.js",
     "index.html": "/short-form-react-boilerplate/index.html",
-    "main.0c677bc6.css.map": "/short-form-react-boilerplate/static/css/main.0c677bc6.css.map",
-    "main.bc232764.js.map": "/short-form-react-boilerplate/static/js/main.bc232764.js.map"
+    "main.06f9a05a.css.map": "/short-form-react-boilerplate/static/css/main.06f9a05a.css.map",
+    "main.c60c5a01.js.map": "/short-form-react-boilerplate/static/js/main.c60c5a01.js.map"
   },
   "entrypoints": [
-    "static/css/main.0c677bc6.css",
-    "static/js/main.bc232764.js"
+    "static/css/main.06f9a05a.css",
+    "static/js/main.c60c5a01.js"
   ]
 }
