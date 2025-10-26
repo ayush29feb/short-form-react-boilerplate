@@ -6,6 +6,7 @@ function Feed({ media }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
+  const [touchOffset, setTouchOffset] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
   const containerRef = useRef(null);
 
@@ -14,11 +15,19 @@ function Feed({ media }) {
 
   const handleTouchStart = (e) => {
     setTouchEnd(0);
+    setTouchOffset(0);
     setTouchStart(e.targetTouches[0].clientY);
   };
 
   const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientY);
+    const currentTouch = e.targetTouches[0].clientY;
+    setTouchEnd(currentTouch);
+
+    // Calculate offset for real-time feedback
+    if (touchStart) {
+      const offset = currentTouch - touchStart;
+      setTouchOffset(offset);
+    }
   };
 
   const handleTouchEnd = () => {
@@ -29,18 +38,19 @@ function Feed({ media }) {
     const isSwipeDown = distance < -minSwipeDistance;
 
     if (isSwipeUp && currentIndex < media.length - 1 && !transitioning) {
-      // Swipe up - next video
+      // Swipe up - next item
       setTransitioning(true);
       setCurrentIndex(prev => prev + 1);
       setTimeout(() => setTransitioning(false), 300);
-    }
-
-    if (isSwipeDown && currentIndex > 0 && !transitioning) {
-      // Swipe down - previous video
+    } else if (isSwipeDown && currentIndex > 0 && !transitioning) {
+      // Swipe down - previous item
       setTransitioning(true);
       setCurrentIndex(prev => prev - 1);
       setTimeout(() => setTransitioning(false), 300);
     }
+
+    // Reset offset
+    setTouchOffset(0);
   };
 
   // Preload next and previous videos
@@ -55,6 +65,43 @@ function Feed({ media }) {
     });
   }, [currentIndex, media]);
 
+  // Calculate transform based on current index and touch offset
+  const getTransform = () => {
+    const baseTransform = -currentIndex * 100;
+    const offsetPercent = (touchOffset / window.innerHeight) * 100;
+    return baseTransform + offsetPercent;
+  };
+
+  // Render adjacent items for smooth transitions
+  const renderItems = () => {
+    const items = [];
+    const indicesToRender = [currentIndex - 1, currentIndex, currentIndex + 1];
+
+    indicesToRender.forEach(index => {
+      if (index >= 0 && index < media.length) {
+        items.push(
+          <div
+            key={media[index].id}
+            style={{
+              position: 'absolute',
+              top: `${index * 100}vh`,
+              left: 0,
+              width: '100%',
+              height: '100vh'
+            }}
+          >
+            <MediaItem
+              item={media[index]}
+              isActive={index === currentIndex}
+            />
+          </div>
+        );
+      }
+    });
+
+    return items;
+  };
+
   return (
     <div
       className="feed-container"
@@ -63,13 +110,14 @@ function Feed({ media }) {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="feed-wrapper">
-        {/* Only render current item */}
-        <MediaItem
-          key={media[currentIndex].id}
-          item={media[currentIndex]}
-          isActive={true}
-        />
+      <div
+        className="feed-wrapper"
+        style={{
+          transform: `translateY(${getTransform()}vh)`,
+          transition: transitioning || touchOffset === 0 ? 'transform 0.3s ease-out' : 'none'
+        }}
+      >
+        {renderItems()}
       </div>
 
       {/* Optional: Progress indicator */}

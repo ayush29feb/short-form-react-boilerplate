@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2025-10-26
+
+### Added
+- Smooth TikTok-style slide transitions between items
+- Real-time swipe feedback - images follow finger during swipe
+- Adjacent item rendering for seamless transitions
+
+### Changed
+- Improved transition animations from instant "pop" to smooth sliding
+- Enhanced touch gesture handling with visual feedback
+- Updated item positioning system for proper vertical stacking
+
+### Fixed
+- Fixed image cropping issues during transitions
+- Resolved black bars appearing during swipe animations
+- Corrected vertical offset calculations for smooth scrolling
+
 ## [1.0.0] - 2025-10-26
 
 ### Added
